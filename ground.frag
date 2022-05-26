@@ -38,12 +38,20 @@ vec4 pointLight()
 	float specAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0f), 16);
 	float specular = specAmount * specularLight;
 
-	return (diffuse + ambient + specular) * lightColor;
+	return (diffuse * specular * inten + ambient) * lightColor;
 }
 
 void main()
 {
-	FragColor = vec4(color, 1.0f) * lightColor;
+	// FragColor = vec4(color, 1.0f) * lightColor;
 	// FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);
 	// FragColor = pointLight();
+
+	float ambient = 0.20f;
+
+	vec3 normal = normalize(Normal);
+	vec3 lightDirection = normalize(lightPos - crntPos);
+	float diffuse = max(dot(normal, lightDirection), 0.0f);
+
+	FragColor = vec4(color, 1.0f) * lightColor * (diffuse + ambient);
 }

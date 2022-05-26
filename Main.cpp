@@ -1,4 +1,5 @@
 #include"Mesh.h"
+#include"Noise.h"
 
 const unsigned int width = 800;
 const unsigned int height = 800;
@@ -46,16 +47,16 @@ float smoothstep(float a, float b, float x)
 	if (x > b) return 1.0f;
 	float ir = 1.0f / (b - a);
 	x = (x - a) * ir;
-	return x * x * (3.0 - 2.0 * x);
+	return x * x * (3.0f - 2.0f * x);
 }
 
 float smoothstepD(float a, float b, float x)
 {
-	if (x < a) return 0.0;
-	if (x > b) return 0.0;
+	if (x < a) return 0.0f;
+	if (x > b) return 0.0f;
 	float ir = 1.0f / (b - a);
 	x = (x - a) * ir;
-	return 6.0 * x * (1.0 - x) * ir;
+	return 6.0f * x * (1.0f - x) * ir;
 }
 
 float terrainMap(float x, float z)
@@ -78,19 +79,24 @@ float simpleTerrainMap(float x, float z)
 	return (x * x - 5 * x + x) * 0.05f + z * 0.2;
 }
 
+float monatin(float x, float z)
+{
+	return 20.0f / (3.0f + x * x + 2 * z * z);
+}
+
 int main()
 {
 
 	std::vector <Vertex> groundVertices;
-	glm::vec3 colorGround = glm::vec3(0.0f, 1.0f, 1.0f);
-	glm::vec3 normalGround = glm::vec3(1.0f, 1.0f, 1.0f);
+	glm::vec3 colorGround = glm::vec3(0.760f, 0.470f, 0.0f);
+	glm::vec3 normalGround = glm::vec3(0.0f, 1.0f, 0.0f);
 	int groundSize = 100;
 	for (int i = 0; i < groundSize; i++)
 		for (int j = 0; j < groundSize; j++) 
 		{
 			float x = i * 0.2f;
 			float z = j * 0.2f;
-			groundVertices.push_back(Vertex{ glm::vec3(x, simpleTerrainMap(x, z), z), normalGround, colorGround });
+			groundVertices.push_back(Vertex{ glm::vec3(x, perlin(x, z), z), normalGround, colorGround});
 		}
 
 	// Indices for vertices order
