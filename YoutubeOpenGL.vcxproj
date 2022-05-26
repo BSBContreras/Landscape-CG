@@ -24,6 +24,7 @@
     <ProjectGuid>{d94349fd-5460-401f-9d7a-1cedaac766a5}</ProjectGuid>
     <RootNamespace>YoutubeOpenGL</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>SinteseCG</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -180,10 +181,6 @@
     <None Include="default.vert" />
     <None Include="light.frag" />
     <None Include="light.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="planks.png" />
-    <Image Include="planksSpec.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
