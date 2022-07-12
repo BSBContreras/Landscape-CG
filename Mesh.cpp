@@ -1,13 +1,14 @@
 #include "Mesh.h"
+#include "Noise.h"
 
-Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices)
+Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, bool dynamic)
 {
 	Mesh::vertices = vertices;
 	Mesh::indices = indices;
 
 	VAO.Bind();
 	// Generates Vertex Buffer Object and links it to vertices
-	VBO VBO(vertices);
+	VBO.Setup(vertices, dynamic);
 	// Generates Element Buffer Object and links it to indices
 	EBO EBO(indices);
 	// Links VBO attributes such as coordinates and colors to VAO
@@ -33,4 +34,13 @@ void Mesh::Draw(Shader& shader, Camera& camera)
 
 	// Draw the actual mesh
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+}
+
+void Mesh::UpdatePosition(Camera& camera, float x, float z)
+{
+	for (Vertex& vertex : vertices) {
+		vertex.position.y = perlin(vertex.position.x + camera.GroundPosition.x, vertex.position.z + camera.GroundPosition.z);
+	}
+
+	VBO.UpdateMesh(vertices);
 }
