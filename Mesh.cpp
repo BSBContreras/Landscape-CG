@@ -39,7 +39,10 @@ void Mesh::Draw(Shader& shader, Camera& camera)
 void Mesh::UpdatePosition(Camera& camera, float x, float z)
 {
 	for (Vertex& vertex : vertices) {
-		vertex.position.y = perlin(vertex.position.x + camera.GroundPosition.x, vertex.position.z + camera.GroundPosition.z);
+		vertex.position.y = perlin((vertex.position.x + camera.GroundPosition.x) * 0.2, (vertex.position.z + camera.GroundPosition.z) * 0.2) * 5;
+		vertex.color.r = vertex.position.y > 2.0f ? 1.0f : 0.8f;
+		vertex.color.g = vertex.position.y > 1.5f ? 1.0f : 0.8f;
+		vertex.color.b = vertex.position.y > 1.0f ? 1.0f : 0.8f;
 	}
 
 	VBO.UpdateMesh(vertices);
