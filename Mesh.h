@@ -27,5 +27,7 @@ public:
 	void Draw(Shader& shader, Camera& camera);
 
 	void UpdatePosition(Camera& camera, float x, float z);
+
+	glm::vec3 getTerrainColor(float y);
 };
 #endif

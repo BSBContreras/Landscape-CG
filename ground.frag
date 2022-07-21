@@ -56,7 +56,7 @@ void main()
 //	FragColor = vec4(colorO, 1.0f) * lightColor * (diffuse + ambient);
 
 	 // ambient
-    float ambientStrength = 0.1;
+    float ambientStrength = 0.3;
 	vec3 color3 = vec3(lightColor[0], lightColor[1], lightColor[2]);
     vec3 ambient = ambientStrength * color3;
     
