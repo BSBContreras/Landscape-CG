@@ -72,15 +72,6 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec3 specular = specularStrength * spec * color3; 
     
-    vec3 colorVar;
-    if (crntPos0[1] < 0.0f) {
-        colorVar = vec3(1.0f, 0.0f, 0.0f); 
-    } else if (crntPos0[1] < 7.5f) {
-        colorVar = vec3(0.0f, 1.0f, 0.0f); 
-    } else {
-        colorVar = vec3(0.0f, 0.0f, 1.0f); 
-    }
-
-    vec3 result = (ambient + diffuse + specular) * colorVar;
+    vec3 result = (ambient + diffuse + specular) * colorO;
     FragColor = vec4(result, 1.0);
 }

@@ -85,18 +85,17 @@ float monatin(float x, float z)
 int main()
 {
 	glm::vec3 position = glm::vec3(.0f, .0f, .0f);
-
 	std::vector <Vertex> groundVertices;
-	glm::vec3 colorGround = glm::vec3(0.760f, 0.470f, 0.0f);
+	glm::vec3 colorGround = glm::vec3(0.80f, 0.80f, 0.80f);
 	glm::vec3 normalGround = glm::vec3(0.0f, 1.0f, 0.0f);
-	int groundSize = 200;
+	int groundSize = 300;
 	float metterRatio = 0.2f;
 	for (int i = 0; i < groundSize; i++)
 		for (int j = 0; j < groundSize; j++) 
 		{
 			float x = i * metterRatio;
 			float z = j * metterRatio;
-			groundVertices.push_back(Vertex{ glm::vec3(x, perlin(x, z), z), normalGround, colorGround});
+			groundVertices.push_back(Vertex{ glm::vec3(x, 0.0f, z), normalGround, colorGround});
 		}
 
 	// Indices for vertices order
@@ -126,7 +125,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
-	GLFWwindow* window = glfwCreateWindow(width, height, "YoutubeOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(width, height, "Perlin Terrain", NULL, NULL);
 	// Error check if the window fails to create
 	if (window == NULL)
 	{
@@ -144,7 +143,7 @@ int main()
 	glViewport(0, 0, width, height);
 
 
-	//Shader groundShader("ground.vert", "ground.frag");
+	// Shader groundShader("ground.vert", "ground.frag");
 	Shader groundShader("NewGround.vert", "ground.frag", "NewGroundGeometry.vert");
 	Mesh ground(groundVertices, groundIndices, true);
 
@@ -193,10 +192,10 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		// Specify the color of the background
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		glClearColor(0.5294f, 0.8078f, 0.9216f, 1.0f);
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		// Handles camera inputs
 		camera.Inputs(window);

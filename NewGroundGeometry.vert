@@ -30,14 +30,12 @@ void main() {
 	EmitVertex();
 
 	vertexPos = gl_in[1].gl_Position;
-	crntPosO = vec3(vertexPos[0], vertexPos[1], vertexPos[2]);
 	gl_Position = camMatrix * model * vertexPos;
 	colorO = color[1];
 	NormalO = normal;
 	EmitVertex();
 
 	vertexPos = gl_in[2].gl_Position;
-	crntPosO = vec3(vertexPos[0], vertexPos[1], vertexPos[2]);
 	gl_Position = camMatrix * model * vertexPos;
 	colorO = color[2];
 	NormalO = normal;
