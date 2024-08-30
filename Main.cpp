@@ -34,62 +34,14 @@ GLuint lightIndices[] =
 	4, 6, 7
 };
 
-float func(float x, float z)
-{
-	return (x * x - 5 * x + 5) * 0.01f - (z * z - 5 * z + 5) * 0.01f;
-}
-
-float smoothstep(float a, float b, float x)
-{
-	if (x < a) return 0.0f;
-	if (x > b) return 1.0f;
-	float ir = 1.0f / (b - a);
-	x = (x - a) * ir;
-	return x * x * (3.0f - 2.0f * x);
-}
-
-float smoothstepD(float a, float b, float x)
-{
-	if (x < a) return 0.0f;
-	if (x > b) return 0.0f;
-	float ir = 1.0f / (b - a);
-	x = (x - a) * ir;
-	return 6.0f * x * (1.0f - x) * ir;
-}
-
-float terrainMap(float x, float z)
-{
-	float a = 10.0f;
-	float b = 5.0f;
-	float c = 1.0f;
-	float d = 0.0f;
-	return
-		(
-			a +
-			(b - a) * smoothstep(0, 1, x) +
-			(c - a) * smoothstep(0, 1, z) +
-			(a - b - c - d) * smoothstep(0, 1, x) * smoothstep(0, 1, z)
-			);
-}
-
-float simpleTerrainMap(float x, float z)
-{
-	return (x * x - 5 * x + x) * 0.05f + z * 0.2;
-}
-
-float monatin(float x, float z)
-{
-	return 20.0f / (3.0f + x * x + 2 * z * z);
-}
-
 int main()
 {
 	glm::vec3 position = glm::vec3(.0f, .0f, .0f);
 	std::vector <Vertex> groundVertices;
 	glm::vec3 colorGround = glm::vec3(0.80f, 0.80f, 0.80f);
 	glm::vec3 normalGround = glm::vec3(0.0f, 1.0f, 0.0f);
-	int groundSize = 300;
-	float metterRatio = 0.2f;
+	int groundSize = 400;
+	float metterRatio = 0.1f;
 	for (int i = 0; i < groundSize; i++)
 		for (int j = 0; j < groundSize; j++) 
 		{
@@ -124,7 +76,7 @@ int main()
 	// So that means we only have the modern functions
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
+	// Create a GLFWwindow object of 800 by 800 pixels, naming it "Perlin Terrain"
 	GLFWwindow* window = glfwCreateWindow(width, height, "Perlin Terrain", NULL, NULL);
 	// Error check if the window fails to create
 	if (window == NULL)
@@ -204,7 +156,7 @@ int main()
 		// Handles camera inputs
 		camera.Inputs(window);
 		// Updates and exports the camera matrix to the Vertex Shader
-		camera.updateMatrix(45.0f, 0.1f, 100.0f);
+		camera.updateMatrix(45.0f, 0.1f, 300.0f);
 
 
 		// Draws different meshes
